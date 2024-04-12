@@ -138,6 +138,11 @@ GazeboSimROS2ControlPluginPrivate::GetEnabledJoints(
     const auto jointName = _ecm.Component<sim::components::Name>(
       jointEntity)->Data();
 
+    RCLCPP_INFO(
+            node_->get_logger(),
+            "[gz_ros2_control] -----------------> joint name [%s]",
+            jointName.c_str());
+
     // Make sure the joint type is supported, i.e. it has exactly one
     // actuated axis
     const auto * jointType = _ecm.Component<sim::components::JointType>(jointEntity);
