@@ -288,9 +288,19 @@ bool GazeboSimSystem::initSim(
     return false;
   }
 
+  for(const auto& kv: enableJoints) {
+    RCLCPP_INFO_STREAM(
+        this->nh_->get_logger(),
+        "Before --- joint_name: " << kv.first);
+  }
+
   for (unsigned int j = 0; j < this->dataPtr->n_dof_; j++) {
     auto & joint_info = hardware_info.joints[j];
     std::string joint_name = this->dataPtr->joints_[j].name = joint_info.name;
+
+    RCLCPP_INFO_STREAM(
+        this->nh_->get_logger(),
+        "During --- joint_name: " << joint_name);
 
     sim::Entity simjoint = enableJoints[joint_name];
     this->dataPtr->joints_[j].sim_joint = simjoint;
